@@ -7,25 +7,48 @@
   {{ message }}
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-
 {% endfor %}
 
-
-<form method = "POST">
+<form method="POST">
   {{ form.hidden_tag() }}
 
-  {{ form.task.label (class="form-label") }}
-  {{ form.task (class="form-control") }}
-  {{ form.description.label (class="form-label") }}
-  {{ form.description (class="form-control") }}
+  <!-- Título da Tarefa -->
+  <div class="form-group">
+    <label for="task" class="form-label">
+      {% if form.task.data %}
+        Edit Task
+      {% else %}
+        New Task
+      {% endif %}
+    </label>
+    {{ form.task(class="form-control") }}
+  </div>
+
+  <!-- Descrição da Tarefa -->
+  <div class="form-group">
+    <label for="description" class="form-label">
+      {% if form.description.data %}
+        Edit the description
+      {% else %}
+        Describe the task
+      {% endif %}
+    </label>
+    {{ form.description(class="form-control") }}
+  </div>
 
   <br/>
-  {{ form.submit(class="btn btn-dark") }}
+  <button type="submit" class="btn btn-dark">
+    {% if form.task.data %}
+      Save changes
+    {% else %}
+      Add Task
+    {% endif %}
+  </button>
   
 </form>
 
-<br/>  <br/>  <br/>
+<br/><br/><br/>
 
 {% include 'table.html' %}
 
-{% endblock %}  
+{% endblock %}
